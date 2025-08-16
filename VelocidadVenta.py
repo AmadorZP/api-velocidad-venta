@@ -36,7 +36,7 @@ def _response(status_code, payload):
         "body": json.dumps(payload, ensure_ascii=False)
     }
 
-def lambda_handler(event):
+def lambda_handler(event, context):
     """
     Espera:
     - Un solo registro (objeto JSON con tus campos), o
@@ -46,7 +46,6 @@ def lambda_handler(event):
     try:
         payload = _parse_body(event)
 
-        # Determinar si viene batch o single
         if isinstance(payload, dict) and "registros" in payload:
             data = payload["registros"]           # lista de dicts
         elif isinstance(payload, dict) and "registro" in payload:
