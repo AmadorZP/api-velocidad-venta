@@ -1,0 +1,26 @@
+org: luisitocomunica
+service: api-velocidad-venta
+
+provider:
+  name: aws
+  runtime: python3.13
+  memorySize: 1024
+  timeout: 20
+  region: us-east-1
+  iam:
+    role: arn:aws:iam::637423185634:role/LabRole
+  environment:
+    AWS_REGION: ${self:provider.region}
+    ENDPOINT_NAME: velocidad-venta-lgbm
+    CONTENT_TYPE: application/json
+    ACCEPT: application/json
+
+functions:
+  predecir:
+    handler: VelocidadVenta.lambda_handler   # <-- si mantienes SalaryPrediction.py, ajusta aquí
+    events:
+      - http:
+          path: /predecir/velocidad-venta
+          method: post
+          cors: true
+          integration: lambda
