@@ -10,14 +10,13 @@ provider:
   iam:
     role: arn:aws:iam::637423185634:role/LabRole
   environment:
-    AWS_REGION: ${self:provider.region}
     ENDPOINT_NAME: velocidad-venta-lgbm
     CONTENT_TYPE: application/json
     ACCEPT: application/json
 
 functions:
   predecir:
-    handler: VelocidadVenta.lambda_handler   # <-- si mantienes SalaryPrediction.py, ajusta aquí
+    handler: VelocidadVenta.lambda_handler
     events:
       - http:
           path: /predecir/velocidad-venta

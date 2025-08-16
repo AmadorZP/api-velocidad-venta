@@ -1,9 +1,7 @@
-# VelocidadVenta.py
 import os
 import json
 import boto3
 
-# Variables de entorno (más flexible para dev/prod)
 AWS_REGION     = os.getenv("AWS_REGION", "us-east-1")
 ENDPOINT_NAME  = os.getenv("ENDPOINT_NAME", "velocidad-venta-lgbm")
 CONTENT_TYPE   = os.getenv("CONTENT_TYPE", "application/json")
@@ -24,7 +22,6 @@ def _parse_body(event):
     try:
         return json.loads(body)
     except Exception:
-        # También intentamos si viene como url-encoded con "body" JSON dentro
         return {}
 
 def _response(status_code, payload):
@@ -39,7 +36,7 @@ def _response(status_code, payload):
         "body": json.dumps(payload, ensure_ascii=False)
     }
 
-def lambda_handler(event, context):
+def lambda_handler(event):
     """
     Espera:
     - Un solo registro (objeto JSON con tus campos), o
